@@ -1,0 +1,34 @@
+[
+  {
+    "id": "1",
+    "name": "Today's Top Hits",
+    "description": "The biggest hits on Spotify right now.",
+    "author": "Spotify",
+    "visibility": "public",
+    "spotifyUrl": "https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M"
+  },
+  {
+    "id": "2",
+    "name": "RapCaviar",
+    "description": "New music from Drake, Travis Scott, and more.",
+    "author": "Spotify",
+    "visibility": "public",
+    "spotifyUrl": "https://open.spotify.com/playlist/37i9dQZF1DX0XUsuxWHRQd"
+  },
+  {
+    "id": "3",
+    "name": "Rock Classics",
+    "description": "Rock legends & epic songs that continue to inspire generations.",
+    "author": "Spotify",
+    "visibility": "public",
+    "spotifyUrl": "https://open.spotify.com/playlist/37i9dQZF1DWXRqgorJj26U"
+  },
+  {
+    "id": "4",
+    "name": "Chill Hits",
+    "description": "Kick back to the best new and recent chill tunes.",
+    "author": "Spotify",
+    "visibility": "private",
+    "spotifyUrl": "https://open.spotify.com/playlist/37i9dQZF1DX4WYpdgoIcn6"
+  }
+]

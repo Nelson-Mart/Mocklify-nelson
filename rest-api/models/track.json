@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "name": "Blinding Lights",
+    "bpm": 171,
+    "durationSeconds": 200,
+    "releaseYear": 2019,
+    "artists": ["The Weeknd"],
+    "genres": ["Synthwave", "Pop"],
+    "spotifyUrl": "https://open.spotify.com/track/0VjIjW4GlUZAMYd2vXMi3b"
+  },
+  {
+    "id": "2",
+    "name": "Shape of You",
+    "bpm": 96,
+    "durationSeconds": 233,
+    "releaseYear": 2017,
+    "artists": ["Ed Sheeran"],
+    "genres": ["Pop"],
+    "spotifyUrl": "https://open.spotify.com/track/7qiZfU4dY1lWllzX7mPBI3"
+  },
+  {
+    "id": "3",
+    "name": "Lose Yourself",
+    "bpm": 171,
+    "durationSeconds": 326,
+    "releaseYear": 2002,
+    "artists": ["Eminem"],
+    "genres": ["Hip-Hop", "Rap"],
+    "spotifyUrl": "https://open.spotify.com/track/1y7mcZJ3aE8dHhKfR4d6AN"
+  },
+  {
+    "id": "4",
+    "name": "Smells Like Teen Spirit",
+    "bpm": 117,
+    "durationSeconds": 301,
+    "releaseYear": 1991,
+    "artists": ["Nirvana"],
+    "genres": ["Grunge", "Rock"],
+    "spotifyUrl": "https://open.spotify.com/track/5ghIJDpPoe3CfHMGu71E6T"
+  }
+]
