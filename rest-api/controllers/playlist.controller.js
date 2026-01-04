@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const { playlistSchema } = require("../validation/playlist.schema");
 //Number(req.params.id) gebruikt omdat id een nummer is in playlists.json
 
 function getAllPlaylists(req, res) {
@@ -24,12 +25,16 @@ function getPlaylistById(req, res) {
 }
 
 function createPlaylist(req, res) {
+  const { error } = playlistSchema.validate(req.body);
+  if (error) return res.status(400).json({
+    message: "Missing requried fields or invalid data types",
+    errors: error.details
+  });
   const playlistsJson = fs.readFileSync(
     path.join(__dirname, "..", "models", "playlists.json")
   );
   const playlists = JSON.parse(playlistsJson);
   const newPlaylist = { 
-    id: playlists.length + 1, 
     name: req.body.name,
     description: req.body.description,
     author: req.body.author,
@@ -44,6 +49,11 @@ function createPlaylist(req, res) {
 }
 
 function updatePlaylist(req, res) {
+  const { error } = playlistSchema.validate(req.body);
+  if (error) return res.status(400).json({
+    message: "Missing requried fields or invalid data types",
+    errors: error.details
+  });
   const id = Number(req.params.id);
   const playlistsJson = fs.readFileSync(
     path.join(__dirname, "..", "models", "playlists.json")

@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const { trackSchema } = require("../validation/track.schema");
 //Number(req.params.id) gebruikt omdat id een nummer is in tracks.json
 
 function getAllTracks(req, res) {
@@ -24,12 +25,16 @@ function getTrackById(req, res) {
 }
 
 function createTrack(req, res) {
+  const { error } = trackSchema.validate(req.body);
+  if (error) return res.status(400).json({
+    message: "Missing requried fields or invalid data types",
+    errors: error.details
+  });
   const tracksJson = fs.readFileSync(
     path.join(__dirname, "..", "models", "tracks.json")
   );
   const tracks = JSON.parse(tracksJson);
   const newTrack = { 
-    id: tracks.length + 1, 
     title: req.body.title,
     bpm: req.body.bpm,
     durationSeconds: req.body.durationSeconds,
@@ -46,6 +51,11 @@ function createTrack(req, res) {
 }
 
 function updateTrack(req, res) {
+  const { error } = trackSchema.validate(req.body);
+  if (error) return res.status(400).json({
+    message: "Missing requried fields or invalid data types",
+    errors: error.details
+  });
   const id = Number(req.params.id);
   const tracksJson = fs.readFileSync(
     path.join(__dirname, "..", "models", "tracks.json")
