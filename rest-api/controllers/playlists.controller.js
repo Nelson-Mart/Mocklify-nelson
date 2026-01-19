@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const { playlistSchema } = require("../validation/playlist.schema");
+const { playlistSchema } = require("../validation/playlists.schema");
 //Number(req.params.id) gebruikt omdat id een nummer is in playlists.json
 
 function getAllPlaylists(req, res) {

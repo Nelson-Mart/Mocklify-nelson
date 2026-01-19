@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const { trackSchema } = require("../validation/track.schema");
+const { trackSchema } = require("../validation/tracks.schema");
 //Number(req.params.id) gebruikt omdat id een nummer is in tracks.json
 
 function getAllTracks(req, res) {
@@ -35,12 +35,12 @@ function createTrack(req, res) {
   );
   const tracks = JSON.parse(tracksJson);
   const newTrack = { 
-    title: req.body.title,
+    name: req.body.name,
     bpm: req.body.bpm,
     durationSeconds: req.body.durationSeconds,
     releaseYear: req.body.releaseYear,
     artists: req.body.artists,
-    genre: req.body.genre,
+    genres: req.body.genres,
     spotifyUrl: req.body.spotifyUrl
   };
   fs.writeFileSync(
@@ -65,12 +65,12 @@ function updateTrack(req, res) {
   if (trackId === -1) {
     return res.status(404).json({});
   }
-  tracks[trackId].title = req.body.title;
+  tracks[trackId].name = req.body.name;
   tracks[trackId].bpm = req.body.bpm;
   tracks[trackId].durationSeconds = req.body.durationSeconds;
   tracks[trackId].releaseYear = req.body.releaseYear;
   tracks[trackId].artists = req.body.artists;
-  tracks[trackId].genre = req.body.genre;
+  tracks[trackId].genres = req.body.genres;
   tracks[trackId].spotifyUrl = req.body.spotifyUrl;
   fs.writeFileSync(
     path.join(__dirname, "..", "models", "tracks.json"),
