@@ -1,0 +1,260 @@
+{
+  "v": 11,
+  "name": "playlists&tracks",
+  "folders": [],
+  "requests": [
+    {
+      "v": "17",
+      "endpoint": "https://echo.hoppscotch.io",
+      "name": "Get all playlists",
+      "params": [],
+      "headers": [],
+      "method": "GET",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "preRequestScript": "",
+      "testScript": "",
+      "body": {
+        "contentType": null,
+        "body": null
+      },
+      "requestVariables": [],
+      "responses": {},
+      "description": null
+    },
+    {
+      "v": "17",
+      "endpoint": "http://localhost:3000/playlists/1",
+      "name": "Get playlist by id",
+      "params": [],
+      "headers": [],
+      "method": "GET",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "preRequestScript": "",
+      "testScript": "",
+      "body": {
+        "contentType": null,
+        "body": null
+      },
+      "requestVariables": [],
+      "responses": {},
+      "description": null
+    },
+    {
+      "v": "17",
+      "endpoint": "https://echo.hoppscotch.io",
+      "name": "Post a playlist",
+      "params": [],
+      "headers": [],
+      "method": "POST",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "preRequestScript": "",
+      "testScript": "",
+      "body": {
+        "contentType": null,
+        "body": null
+      },
+      "requestVariables": [],
+      "responses": {},
+      "description": null
+    },
+    {
+      "v": "17",
+      "name": "change a playlist item",
+      "method": "PUT",
+      "endpoint": "http://localhost:3000/playlists/8",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n  \"name\": \"My third playlist updated\",\n  \"description\": \"A mix of my favorite songs\",\n  \"author\": \"Nelson\",\n  \"visibility\": \"public\",\n  \"spotifyUrl\": \"https://open.spotify.com/playlist/123456\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {},
+      "description": null
+    },
+    {
+      "v": "17",
+      "name": "Change property of a playlist",
+      "method": "PATCH",
+      "endpoint": "http://localhost:3000/playlists/8",
+      "params": [],
+      "headers": [],
+      "preRequestScript": "",
+      "testScript": "",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n  \"name\": \"My third playlist changed\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {},
+      "description": null
+    },
+    {
+      "v": "17",
+      "endpoint": "http://localhost:3000/playlists/5",
+      "name": "Delete playlist by id",
+      "params": [],
+      "headers": [],
+      "method": "DELETE",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "preRequestScript": "",
+      "testScript": "",
+      "body": {
+        "contentType": null,
+        "body": null
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "17",
+      "endpoint": "http://localhost:3000/tracks",
+      "name": "Get all tracks",
+      "params": [],
+      "headers": [],
+      "method": "GET",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "preRequestScript": "",
+      "testScript": "",
+      "body": {
+        "contentType": "application/json",
+        "body": null
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "17",
+      "endpoint": "http://localhost:3000/tracks/1",
+      "name": "Get track by id",
+      "params": [],
+      "headers": [],
+      "method": "GET",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "preRequestScript": "",
+      "testScript": "",
+      "body": {
+        "contentType": null,
+        "body": null
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "17",
+      "endpoint": "http://localhost:3000/tracks",
+      "name": "Post a track",
+      "params": [],
+      "headers": [],
+      "method": "POST",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "preRequestScript": "",
+      "testScript": "",
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n  \"name\": \"Take On Me 2\",\n  \"bpm\": 169,\n  \"durationSeconds\": 225,\n  \"releaseYear\": 1985,\n  \"artists\": [\"a-ha\"],\n  \"genres\": [\"Synth-pop\", \"Pop\"],\n  \"spotifyUrl\": \"https://open.spotify.com/track/2WfaOiMkCvy7F5fcp2zZ8L\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "17",
+      "endpoint": "http://localhost:3000/tracks/5",
+      "name": "change a track item",
+      "params": [],
+      "headers": [],
+      "method": "PUT",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "preRequestScript": "",
+      "testScript": "",
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n  \"name\": \"Take On Me\",\n  \"bpm\": 170,\n  \"durationSeconds\": 225,\n  \"releaseYear\": 1985,\n  \"artists\": [\"a-ha\"],\n  \"genres\": [\"Synth-pop\", \"Pop\"],\n  \"spotifyUrl\": \"https://open.spotify.com/track/2WfaOiMkCvy7F5fcp2zZ8L\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "17",
+      "endpoint": "http://localhost:3000/tracks/5",
+      "name": "Change track by property of a track",
+      "params": [],
+      "headers": [],
+      "method": "PATCH",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "preRequestScript": "",
+      "testScript": "",
+      "body": {
+        "contentType": "application/json",
+        "body": "{\n  \"name\": \"Take On Me remix\"\n}"
+      },
+      "requestVariables": [],
+      "responses": {}
+    },
+    {
+      "v": "17",
+      "endpoint": "http://localhost:3000/playlists/5",
+      "name": "Delete track by id",
+      "params": [],
+      "headers": [],
+      "method": "DELETE",
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "preRequestScript": "",
+      "testScript": "",
+      "body": {
+        "contentType": null,
+        "body": null
+      },
+      "requestVariables": [],
+      "responses": {},
+      "description": null
+    }
+  ],
+  "headers": [],
+  "auth": {
+    "authType": "none",
+    "authActive": true
+  },
+  "variables": [],
+  "description": ""
+}
