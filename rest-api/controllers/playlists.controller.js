@@ -8,13 +8,19 @@ const playlistsJson = fs.readFileSync( path.join(__dirname, "..", "models", "pla
 function getAllPlaylists(req, res) {
   const playlists = JSON.parse(playlistsJson);
 
-  const sort = req.query.sort;
+  const { sort, getAll } = req.query;
+
   if (sort === "asc") {
     playlists.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
   } else if (sort === "desc") {
     playlists.sort((a, b) => b.name.toLowerCase().localeCompare(a.name.toLowerCase()));
   }
   //localcompare om speciaal tekens correct te sorteren
+
+  if (getAll) {
+    const items = playlists.map((playlist) => { playlist[getAll]; return playlist[getAll]; });
+    return res.status(200).json(items);
+  }
   return res.status(200).json(playlists);
 }
 

@@ -8,13 +8,19 @@ const tracksJson = fs.readFileSync( path.join(__dirname, "..", "models", "tracks
 function getAllTracks(req, res) {
   const tracks = JSON.parse(tracksJson);
 
-  const sort = req.query.sort;
+  const { getAll, sort } = req.query;
+
   if (sort === "asc") {
     tracks.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
   } else if (sort === "desc") {
     tracks.sort((a, b) => b.name.toLowerCase().localeCompare(a.name.toLowerCase()));
   }
   //localcompare om speciaal tekens correct te sorteren
+
+  if (getAll) {
+    const items = tracks.map((track) => { track[getAll]; return track[getAll]; });
+    return res.status(200).json(items);
+  }
   return res.status(200).json(tracks);
 }
 
