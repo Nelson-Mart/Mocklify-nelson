@@ -7,4 +7,15 @@ const playlistSchema = Joi.object({
   spotifyUrl: Joi.string().uri().required(),
 });
 
-module.exports = { playlistSchema };
+const patchPlaylistSchema = Joi.object({
+  name: Joi.string().max(30),
+  description: Joi.string().max(255),
+  author: Joi.string().max(30),
+  visibility: Joi.string().valid("public", "private"),
+  spotifyUrl: Joi.string().uri(),
+});
+
+module.exports = {
+  playlistSchema,
+  patchPlaylistSchema,
+};

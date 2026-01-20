@@ -1,13 +1,25 @@
-const joi = require("joi");
-
-const trackSchema = joi.object({
-    title: joi.string().max(100).required(),
-    bpm: joi.number().required(),
-    durationSeconds: joi.number().required(),
-    releaseYear: joi.number().required(),
-    artists: joi.array().required(),
-    genre: joi.string().max(30).required(),
-    spotifyUrl: joi.string().uri().required(),
+const Joi = require("joi");
+const trackSchema = Joi.object({
+    name: Joi.string().max(100).required(),
+    bpm: Joi.number().required(),
+    durationSeconds: Joi.number().required(),
+    releaseYear: Joi.number().required(),
+    artists: Joi.array().required(),
+    genres: Joi.array().items(Joi.string().max(30)).required(),
+    spotifyUrl: Joi.string().uri().required(),
 });
 
-module.exports = { trackSchema };
+const patchTrackSchema = Joi.object({
+    name: Joi.string().max(100),
+    bpm: Joi.number(),
+    durationSeconds: Joi.number(),
+    releaseYear: Joi.number(),
+    artists: Joi.array(),
+    genres: Joi.array().items(Joi.string().max(30)),
+    spotifyUrl: Joi.string().uri(),
+});
+
+module.exports = {
+trackSchema,
+patchTrackSchema,
+};
