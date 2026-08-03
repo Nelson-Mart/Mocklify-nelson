@@ -24,7 +24,7 @@ De data wordt opgeslagen in lokale JSON-bestanden, zonder gebruik van een extern
 Clone de repository:
 
 ```bash
-git clone <repository-url>
+git clone <https://github.com/Nelson-Mart/Mocklify-nelson.git>
 ```
 
 Installeer de dependencies:
