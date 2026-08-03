@@ -10,6 +10,10 @@ app.use(express.json());
 app.use("/playlists", playlistRoutes);
 app.use("/tracks", trackRoutes);
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+if (process.env.NODE_ENV !== "test") {
+  app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`);
+  });
+}
+
+module.exports = app;
