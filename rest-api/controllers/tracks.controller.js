@@ -1,14 +1,16 @@
-const fs = require("fs");
+const { readJson, writeJson } = require("../utils/jsonHelper.js");
+const { notFound, badRequest } = require("../utils/responses.js");
 const path = require("path");
+const { v4: uuidv4 } = require("uuid");
 const { trackSchema } = require("../validation/tracks.schema");
 const { patchTrackSchema } = require("../validation/tracks.schema");
-//Number(req.params.id) gebruikt omdat id een nummer is in tracks.json
-const tracksJson = fs.readFileSync( path.join(__dirname, "..", "models", "tracks.json") );
+
+const tracksFile = path.join(__dirname, "..", "models", "tracks.json");
 
 function getAllTracks(req, res) {
-  const tracks = JSON.parse(tracksJson);
+  let tracks = readJson(tracksFile);
 
-  const { getAll, sort } = req.query;
+  const { sort, genre, getAll } = req.query;
 
   if (sort === "asc") {
     tracks.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
@@ -16,6 +18,14 @@ function getAllTracks(req, res) {
     tracks.sort((a, b) => b.name.toLowerCase().localeCompare(a.name.toLowerCase()));
   }
   //localcompare om speciaal tekens correct te sorteren
+
+  if (genre) {
+    tracks = tracks.filter(track =>
+      track.genres.some(g =>
+        g.toLowerCase().includes(genre.toLowerCase())
+      )
+    );
+  }
 
   if (getAll) {
     const items = tracks.map((track) => { track[getAll]; return track[getAll]; });
@@ -25,13 +35,13 @@ function getAllTracks(req, res) {
 }
 
 function getTrackById(req, res) {
-  const id = Number(req.params.id);
+  const id = req.params.id;
   
-  const tracks = JSON.parse(tracksJson);
-  const trackId = tracks.findIndex((track) => Number(track.id) === id);
+  const tracks = readJson(tracksFile);
+  const trackId = tracks.findIndex((track) => track.id === id);
   const track = tracks[trackId];
   if (trackId === -1) {
-    return res.status(404).json({});
+    return notFound(res,"Track");
   }
   return res.status(200).json(track);
 }
@@ -39,15 +49,14 @@ function getTrackById(req, res) {
 function createTrack(req, res) {
   const { error } = trackSchema.validate(req.body);
   if (error) return res.status(400).json({
-    message: "Missing requried fields or invalid data types",
+    message: "Missing required fields or invalid data types",
     errors: error.details
   });
 
-  const tracks = JSON.parse(tracksJson);
+  const tracks = readJson(tracksFile);
 
-  const nextId = Math.max(...tracks.map(item => item.id)) + 1;
   const newTrack = { 
-    id: nextId,
+    id: uuidv4(),
     name: req.body.name,
     bpm: req.body.bpm,
     durationSeconds: req.body.durationSeconds,
@@ -56,26 +65,23 @@ function createTrack(req, res) {
     genres: req.body.genres,
     spotifyUrl: req.body.spotifyUrl
   };
-  fs.writeFileSync(
-    path.join(__dirname, "..", "models", "tracks.json"),
-    JSON.stringify([...tracks, newTrack])
-  );
+  writeJson(tracksFile, tracks);
   return res.status(201).json(newTrack);
 }
 
 function updateTrack(req, res) {
   const { error } = trackSchema.validate(req.body);
   if (error) return res.status(400).json({
-    message: "Missing requried fields or invalid data types",
+    message: "Missing required fields or invalid data types",
     errors: error.details
   });
-  const id = Number(req.params.id);
+  const id = req.params.id;
 
-  const tracks = JSON.parse(tracksJson);
-  const trackId = tracks.findIndex((track) => Number(track.id) === id);
+  const tracks = readJson(tracksFile);
+  const trackId = tracks.findIndex((track) => track.id === id);
   const track = tracks[trackId];
   if (trackId === -1) {
-    return res.status(404).json({});
+    return notFound(res,"Track");
   }
   track.name = req.body.name;
   track.bpm = req.body.bpm;
@@ -94,16 +100,16 @@ function updateTrack(req, res) {
 function patchTrack(req, res) {
   const { error } = patchTrackSchema.validate(req.body);
   if (error) return res.status(400).json({
-    message: "Missing requried fields or invalid data types",
+    message: "Missing required fields or invalid data types",
     errors: error.details
   });
-  const id = Number(req.params.id);
+  const id = req.params.id;
 
-  const tracks = JSON.parse(tracksJson);
-  const trackId = tracks.findIndex((track) => Number(track.id) === id);
+  const tracks = readJson(tracksFile);
+  const trackId = tracks.findIndex((track) => track.id === id);
   const track = tracks[trackId];
   if (trackId === -1) {
-    return res.status(404).json({});
+    return notFound(res,"Track");
   }
   if (req.body.name !== undefined) {
     track.name = req.body.name;
@@ -126,26 +132,20 @@ function patchTrack(req, res) {
   if (req.body.spotifyUrl !== undefined) {
     track.spotifyUrl = req.body.spotifyUrl;
   }
-  fs.writeFileSync(
-    path.join(__dirname, "..", "models", "tracks.json"),
-    JSON.stringify(tracks)
-  );
+  writeJson(tracksFile, tracks);
   return res.status(200).json(track);
 }
 
 function deleteTrack(req, res) {
-  const id = Number(req.params.id);
+  const id = req.params.id;
 
-  const tracks = JSON.parse(tracksJson);
-  const trackId = tracks.findIndex((track) => Number(track.id) === id);
+  const tracks = readJson(tracksFile);
+  const trackId = tracks.findIndex((track) => track.id === id);
   if (trackId === -1) {
-    return res.status(404).json({});
+    return notFound(res,"Track");
   }
   tracks.splice(trackId, 1);
-  fs.writeFileSync(
-    path.join(__dirname, "..", "models", "tracks.json"),
-    JSON.stringify(tracks)
-  );
+  writeJson(tracksFile, tracks);
   return res.status(200).json({ message: "Track deleted" });
 }
 

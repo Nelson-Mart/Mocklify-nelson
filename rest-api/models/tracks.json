@@ -1,1 +1,61 @@
-[{"id":1,"name":"Blinding Lights","bpm":171,"durationSeconds":201,"releaseYear":2019,"artists":["The Weeknd"],"genres":["Synthwave","Pop"],"spotifyUrl":"https://open.spotify.com/track/0VjIjW4GlUZAMYd2vXMi3b"},{"id":2,"name":"Shape of You","bpm":96,"durationSeconds":233,"releaseYear":2017,"artists":["Ed Sheeran"],"genres":["Pop"],"spotifyUrl":"https://open.spotify.com/track/7qiZfU4dY1lWllzX7mPBI3"},{"id":3,"name":"Lose Yourself","bpm":171,"durationSeconds":326,"releaseYear":2002,"artists":["Eminem"],"genres":["Hip-Hop","Rap"],"spotifyUrl":"https://open.spotify.com/track/1y7mcZJ3aE8dHhKfR4d6AN"},{"id":4,"name":"Smells Like Teen Spirit","bpm":117,"durationSeconds":301,"releaseYear":1991,"artists":["Nirvana"],"genres":["Grunge","Rock"],"spotifyUrl":"https://open.spotify.com/track/5ghIJDpPoe3CfHMGu71E6T"}]
+[
+    {
+      "id": "7a4e91c3-5b82-4d60-a739-1f8c6e2b9054",
+      "name": "Blinding Lights",
+      "bpm": 171,
+      "durationSeconds": 201,
+      "releaseYear": 2019,
+      "artists": [
+        "The Weeknd"
+      ],
+      "genres": [
+        "Synthwave",
+        "Pop"
+      ],
+      "spotifyUrl": "https://open.spotify.com/track/0VjIjW4GlUZAMYd2vXMi3b"
+    },
+    {
+      "id": "b82f5c19-6e43-4a71-9d05-3c8e7f2a6149",
+      "name": "Shape of You",
+      "bpm": 96,
+      "durationSeconds": 233,
+      "releaseYear": 2017,
+      "artists": [
+        "Ed Sheeran"
+      ],
+      "genres": [
+        "Pop"
+      ],
+      "spotifyUrl": "https://open.spotify.com/track/7qiZfU4dY1lWllzX7mPBI3"
+    },
+    {
+      "id": "e35a7d91-2c64-4f80-b916-8e3d5a7c2049",
+      "name": "Lose Yourself",
+      "bpm": 171,
+      "durationSeconds": 326,
+      "releaseYear": 2002,
+      "artists": [
+        "Eminem"
+      ],
+      "genres": [
+        "Hip-Hop",
+        "Rap"
+      ],
+      "spotifyUrl": "https://open.spotify.com/track/1y7mcZJ3aE8dHhKfR4d6AN"
+    },
+    {
+      "id": "91c6e4a8-7b52-4d30-f289-5e1a3c7b6042",
+      "name": "Smells Like Teen Spirit",
+      "bpm": 117,
+      "durationSeconds": 301,
+      "releaseYear": 1991,
+      "artists": [
+        "Nirvana"
+      ],
+      "genres": [
+        "Grunge",
+        "Rock"
+      ],
+      "spotifyUrl": "https://open.spotify.com/track/5ghIJDpPoe3CfHMGu71E6T"
+    }
+  ]

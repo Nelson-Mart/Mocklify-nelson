@@ -1,14 +1,16 @@
-const fs = require("fs");
+const { readJson, writeJson } = require("../utils/jsonHelper.js");
+const { notFound, badRequest } = require("../utils/responses.js");
 const path = require("path");
+const { v4: uuidv4 } = require("uuid");
 const { playlistSchema } = require("../validation/playlists.schema");
 const { patchPlaylistSchema } = require("../validation/playlists.schema");
-//Number(req.params.id) gebruikt omdat id een nummer is in playlists.json
-const playlistsJson = fs.readFileSync( path.join(__dirname, "..", "models", "playlists.json"));
+
+const playlistsFile = path.join(__dirname,"..","models","playlists.json");
 
 function getAllPlaylists(req, res) {
-  const playlists = JSON.parse(playlistsJson);
+  let playlists = readJson(playlistsFile);
 
-  const { sort, getAll } = req.query;
+  const { sort, author, getAll } = req.query;
 
   if (sort === "asc") {
     playlists.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
@@ -16,6 +18,12 @@ function getAllPlaylists(req, res) {
     playlists.sort((a, b) => b.name.toLowerCase().localeCompare(a.name.toLowerCase()));
   }
   //localcompare om speciaal tekens correct te sorteren
+
+  if (author) {
+    playlists = playlists.filter((playlist) =>
+      playlist.author.toLowerCase().includes(author.toLowerCase())
+    );
+  }
 
   if (getAll) {
     const items = playlists.map((playlist) => { playlist[getAll]; return playlist[getAll]; });
@@ -25,13 +33,13 @@ function getAllPlaylists(req, res) {
 }
 
 function getPlaylistById(req, res) {
-  const id = Number(req.params.id);
+  const id = req.params.id;
 
-  const playlists = JSON.parse(playlistsJson);
-  const playlistId = playlists.findIndex((playlist) => Number(playlist.id) === id);
+  const playlists = readJson(playlistsFile);
+  const playlistId = playlists.findIndex((playlist) => playlist.id === id);
   const playlist = playlists[playlistId];
   if (playlistId === -1) {
-    return res.status(404).json({});
+    return notFound(res,"Playlist");
   }
     return res.status(200).json(playlist);
 }
@@ -39,68 +47,60 @@ function getPlaylistById(req, res) {
 function createPlaylist(req, res) {
   const { error } = playlistSchema.validate(req.body);
   if (error) return res.status(400).json({
-    message: "Missing requried fields or invalid data types",
+    message: "Missing required fields or invalid data types",
     errors: error.details
   });
   
-  const playlists = JSON.parse(playlistsJson);
-
-  const nextId = Math.max(...playlists.map(item => item.id)) + 1;
+  const playlists = readJson(playlistsFile);
   
   const newPlaylist = { 
-    id: nextId,
+    id: uuidv4(),
     name: req.body.name,
     description: req.body.description,
     author: req.body.author,
     visibility: req.body.visibility,
     spotifyUrl: req.body.spotifyUrl
   };
-  fs.writeFileSync(
-    path.join(__dirname, "..", "models", "playlists.json"),
-    JSON.stringify([...playlists, newPlaylist])
-  );
+  writeJson(playlistsFile, playlists);
   return res.status(201).json(newPlaylist);
 }
 
 function updatePlaylist(req, res) {
   const { error } = playlistSchema.validate(req.body);
   if (error) return res.status(400).json({
-    message: "Missing requried fields or invalid data types",
+    message: "Missing required fields or invalid data types",
     errors: error.details
   });
-  const id = Number(req.params.id);
+  const id = req.params.id;
 
-  const playlists = JSON.parse(playlistsJson);
-  const playlistId = playlists.findIndex((playlist) => Number(playlist.id) === id);
+  const playlists = readJson(playlistsFile);
+  const playlistId = playlists.findIndex((playlist) => playlist.id === id);
   const playlist = playlists[playlistId];
   if (playlistId === -1) {
-    return res.status(404).json({});
+    return notFound(res,"Playlist");
   }
   playlist.name = req.body.name;
   playlist.description = req.body.description;
   playlist.author = req.body.author;
   playlist.visibility = req.body.visibility;
   playlist.spotifyUrl = req.body.spotifyUrl;
-  fs.writeFileSync(
-  path.join(__dirname, "..", "models", "playlists.json"),
-  JSON.stringify(playlists)
-  );
+  writeJson(playlistsFile, playlists);
   return res.status(200).json(playlist);
 }
 
 function patchPlaylist(req, res) {
   const { error } = patchPlaylistSchema.validate(req.body);
   if (error) return res.status(400).json({
-    message: "Missing requried fields or invalid data types",
+    message: "Missing required fields or invalid data types",
     errors: error.details
   });
-  const id = Number(req.params.id);
+  const id = req.params.id;
 
-  const playlists = JSON.parse(playlistsJson);
-  const playlistId = playlists.findIndex((playlist) => Number(playlist.id) === id);
+  const playlists = readJson(playlistsFile);
+  const playlistId = playlists.findIndex((playlist) => playlist.id === id);
 
   if (playlistId === -1) {
-    return res.status(404).json({});
+    return notFound(res,"Playlist");
   }
 
   const playlist = playlists[playlistId];
@@ -120,26 +120,20 @@ function patchPlaylist(req, res) {
   if (req.body.spotifyUrl !== undefined) {
     playlist.spotifyUrl = req.body.spotifyUrl;
   }
-  fs.writeFileSync(
-    path.join(__dirname, "..", "models", "playlists.json"),
-    JSON.stringify(playlists)
-  );
+  writeJson(playlistsFile, playlists);
   return res.status(200).json(playlist);
 }
 
 function deletePlaylist(req, res) {
-  const id = Number(req.params.id);
+  const id = req.params.id;
 
-  const playlists = JSON.parse(playlistsJson);
-  const playlistId = playlists.findIndex((playlist) => Number(playlist.id) === id);
+  const playlists = readJson(playlistsFile);
+  const playlistId = playlists.findIndex((playlist) => playlist.id === id);
   if (playlistId === -1) {
-    return res.status(404).json({});
+    return notFound(res,"Playlist");
   }
     playlists.splice(playlistId, 1);
-    fs.writeFileSync(
-    path.join(__dirname, "..", "models", "playlists.json"),
-    JSON.stringify(playlists)
-    );
+    writeJson(playlistsFile, playlists);
     return res.status(200).json({ message: "Playlist deleted" });
 };
 
