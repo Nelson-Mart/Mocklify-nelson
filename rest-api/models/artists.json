@@ -1,0 +1,32 @@
+[
+  {
+    "id": "3d9f1a72-6b84-4c50-a917-2e6c8b3f9a15",
+    "firstName": "Abel",
+    "lastName": "Tesfaye",
+    "about": "Canadian singer and songwriter known by the stage name The Weeknd, celebrated for blending R&B, pop, and synth-driven soundscapes."
+  },
+  {
+    "id": "5c1e8b34-9a72-4f65-b840-7d3a6c9e2158",
+    "firstName": "Ed",
+    "lastName": "Sheeran",
+    "about": "English singer-songwriter and guitarist known for acoustic pop hits and his signature live looping style."
+  },
+  {
+    "id": "9a4c7e21-3f68-4d95-a210-6b8e5c1a7042",
+    "firstName": "Marshall",
+    "lastName": "Mathers",
+    "about": "American rapper and songwriter known by the stage name Eminem, widely regarded as one of the most influential lyricists in hip-hop."
+  },
+  {
+    "id": "2f7b9d43-8c15-4a60-b729-4e1d8a6c3059",
+    "firstName": "Kurt",
+    "lastName": "Cobain",
+    "about": "American musician who was the lead singer, guitarist, and primary songwriter of the rock band Nirvana."
+  },
+  {
+    "id": "252453ae-6017-4797-aa7d-d10a69a56fdc",
+    "firstName": "Justin",
+    "lastName": "Timberlake",
+    "about": "Singer from the US."
+  }
+]
