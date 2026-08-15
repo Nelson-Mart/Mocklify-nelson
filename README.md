@@ -245,8 +245,4 @@ Een export van de Hoppscotch-collectie is toegevoegd aan de repository (`hoppsco
 
 ## 👤 Author
 
-Naam: Nelson
-
-Opleiding: Programmeren (PGM 2)
-
-School: Arteveldehogeschool
+Naam: Nelson Martinel
